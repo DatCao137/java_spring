@@ -1,0 +1,40 @@
+server {
+    listen 80;
+    server_name localhost;
+    root /var/www/dist;
+    index index.html;
+    charset utf-8;
+
+    client_max_body_size 50M;    
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
+   
+    gzip on;
+    gzip_types text/css text/javascript;
+    
+    location ~ ^.+/.+\.(png|jpg|jpeg|gif|ico|css|js|html?)$ {
+        try_files $uri $uri/ =404;
+    }
+
+    location = /favicon.ico { 
+        access_log off;
+        log_not_found off;
+    }
+    location = /robots.txt { 
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+
+    location / {
+       try_files $uri $uri/ /index.html;
+    }
+
+    location = /.vite/manifest.json {
+       allow all;
+    }
+}

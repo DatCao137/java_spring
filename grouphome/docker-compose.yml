@@ -1,0 +1,69 @@
+volumes:
+  db-store:
+services:
+  nginx:
+    container_name: ${NGINX_CONTAINER:-grouphome-nginx}
+    build:
+      context: .
+      dockerfile: ./deploy/local/nginx/Dockerfile
+    ports:
+      - ${HTTP_PORT:-1080}:80
+      - ${HTTP_PORT_SP:-1081}:81
+    tty: true
+    working_dir: /var/www
+    volumes:
+      - ./web:/var/www
+      - ./web-sp:/var/wwwsp
+      - ./deploy/local/nginx/templates:/etc/nginx/templates
+    depends_on:
+      - java # 「java」の後で起動
+  java:
+    build: ./deploy/local/java
+    container_name: ${JAVA_CONTAINER:-grouphome-java}
+    # env_file:
+    #   - ./deploy/local/mysql/db.env # mysqlと同じものを指定
+    tty: true
+    stdin_open: true
+    working_dir: /app
+    volumes:
+      - ./app:/app # Spring Bootのプロジェクト
+      - ~/.aws/:/root/.aws:ro
+    ports:
+      - 8080:8080 # 通常実行
+      - 5050:5050 # デバッグ用
+    environment:
+      - flyway.out-of-order=true
+    depends_on:
+      - mysql # 「mysql」の後で起動
+  mysql:
+    build:
+      context: .
+      dockerfile: ./deploy/local/mysql/Dockerfile
+    container_name: ${MYSQL_CONTAINER:-grouphome-mysql}
+    ports:
+      - ${MYSQL_PORT:-13306}:3306
+    volumes:
+      - db-store:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE:-grouphome_db}
+      - MYSQL_USER=${DB_USERNAME:-grouphome_db_user}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-password}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-password}
+      - TZ=${APP_TIMEZONE:-Asia/Tokyo}
+  phpmyadmin:
+    container_name: ${PHPMYADMIN_CONTAINER:-grouphome-phpmyadmin}
+    image: phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=${DB_PASSWORD:-password}
+    ports:
+      - "8001:80"
+    depends_on:
+      - mysql # 「mysql」の後で起動
+  mail:
+      image: axllent/mailpit:latest
+      container_name: ${MAILHOG_CONTAINER:-grouphome-mail}
+      ports:
+        - "${MAILHOG_PORT:-18025}:8025"

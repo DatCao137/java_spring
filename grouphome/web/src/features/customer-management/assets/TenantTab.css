@@ -1,0 +1,40 @@
+.chrome .tab-table-ruby,
+.opera .tab-table-ruby,
+.brave .tab-table-ruby,
+.ie .tab-table-ruby,
+.edge .tab-table-ruby {
+  display: ruby-text !important;
+}
+
+.safari .tab-table-ruby {
+  display: -webkit-box !important;
+}
+
+.firefox .tab-table-ruby {
+  display: ruby !important;
+}
+
+div[role="dialog"]:has(.tab-form-xs) {
+  width: 25% !important;
+  min-width: 300px !important;
+}
+
+div[role="dialog"]:has(.tab-form-sm) {
+  width: 35% !important;
+  min-width: 400px !important;
+}
+
+div[role="dialog"]:has(.tab-form-lg) {
+  width: 55% !important;
+  min-width: 550px !important;
+}
+
+div[role="dialog"]:has(.tab-form-xl) {
+  width: 65% !important;
+  min-width: 700px !important;
+}
+
+div[role="dialog"]:has(.tab-form-2xl) {
+  width: 75% !important;
+  min-width: 800px !important;
+}

@@ -1,0 +1,546 @@
+/* header */
+.bl_header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  height: 50px;
+  padding: 8px 16px 0 12px;
+  background-color: #fff;
+  border-bottom: 2px solid var(--colorM1);
+}
+
+.bl_headerLogo {
+  width: 190px;
+}
+
+.bl_headerBtn {
+  position: fixed;
+  top: 12.5px;
+  right: 16px;
+  z-index: 100;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Main */
+.bl_main {
+  padding: 50px 0;
+}
+
+.bl_narrow {
+  padding: 0 16px;
+}
+
+/* Title */
+.bl_title__common {
+  margin: 32px 0 16px;
+  font-size: 1.2em;
+  line-height: 1.25em;
+}
+
+.bl_title__name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 28px 0 24px;
+  padding: 0 16px;
+  font-size: 1.4em;
+}
+
+.bl_title__name span {
+  display: inline-block;
+  line-height: 1.5em;
+}
+
+
+.bl_title__name.un_byUser {
+  padding: 0;
+}
+
+/* Button wrapper */
+.bl_btnWrapper__right {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bl_btnWrapper__flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bl_btnWrapper__flex button {
+  width: calc(50% - 4px);
+  padding: 5px 0;
+}
+
+.bl_btnWrapper__hasPhoto {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.bl_btnWrapper__hasPhoto .el_btn {
+  flex: 1;
+  display: grid;
+  place-content: center;
+  padding-left: 64px;
+  padding-right: 24px;
+  border-radius: 40px;
+  line-height: 1.25em;
+}
+
+.bl_imageUpload {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.bl_imageUpload .bl_imageWrapper {
+  width: 114px;
+  height: 152px;
+}
+
+.bl_imageUpload .bl_imageWrapper img {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bl_imageUpload .el_btnSquare {
+  flex: 1;
+}
+
+.bl_imageUpload #photoUploadInput {
+  display: none;
+}
+
+/* User photo */
+.bl_userPhoto {
+  width: 60px;
+  height: 80px;
+}
+
+.bl_userPhoto img {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Modal */
+.bl_templateModal {
+  position: absolute;
+  z-index: 99;
+  top: 54px;
+  left: -16px;
+  display: none;
+  width: calc(100vw - 32px);
+  background-color: #fff;
+  border: 2px solid var(--colorM4);
+}
+
+.bl_templateModal::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 32px;
+  transform: rotate(45deg);
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border-left: 2px solid var(--colorM4);
+  border-top: 2px solid var(--colorM4);
+}
+
+.bl_templateModal.show {
+  display: block;
+}
+
+.bl_templateModal li {
+  padding: 6px 16px;
+}
+
+.bl_templateModal li:not(:last-child) {
+  border-bottom: 1px solid var(--colorM4);
+}
+
+/* Anchor */
+.bl_anchorLink {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 2px solid var(--colorG2);
+  border-left: 2px solid var(--colorG2);
+}
+
+.bl_anchorLink li {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 50%;
+  height: 46px;
+  border-right: 2px solid var(--colorG2);
+  border-bottom: 2px solid var(--colorG2);
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+.bl_anchorLink li::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-55%) rotate(45deg);
+  width: 0.5em;
+  height: 0.5em;
+  border-right: 3px solid var(--colorG2);
+  border-bottom: 3px solid var(--colorG2);
+}
+
+/* InputMedicines */
+.un_medicine .el_input__w80px {
+  width: min(20vw, 75px);
+}
+
+/* InputRemarks */
+.un_remarks textarea {
+  min-height: 120px;
+}
+
+/* InputNightPatrol */
+.un_nightPatrol .el_textareaWrapper {
+  padding-left: 36px;
+}
+
+/* InputByUser */
+.un_refill .bl_label__title {
+  white-space: nowrap;
+}
+.un_refill .el_input {
+  width: min(20.5vw, 80px);
+}
+
+@media (width >= 400px) {
+  .un_refill .el_input {
+    width: min(26.7vw, 100px);
+  }
+}
+
+@media (width >= 768px) {
+  .ly_container {
+    max-width: 1100px;
+    padding: 0 29px;
+  }
+
+  .bl_narrow__tablet {
+    max-width: 500px;
+    margin: 0 auto 56px;
+  }
+
+  .bl_btnWrapper__top,
+  .bl_btnWrapper__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .bl_btnWrapper__top .el_btn,
+  .bl_btnWrapper__top .bl_btnWrapper__hasPhoto,
+  .bl_btnWrapper__bottom .el_btn,
+  .bl_btnWrapper__bottom .bl_btnWrapper__hasPhoto {
+    width: calc(50% - 12px);
+    margin: 0;
+  }
+
+  .bl_btnWrapper__bottom {
+    justify-content: center;
+    flex-direction: row-reverse;
+  }
+
+  .bl_ghdWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 32px 24px;
+  }
+
+  .bl_ghdWrapper .bl_ghd,
+  .bl_ghdWrapper .el_btn {
+    width: calc(50% - 12px);
+  }
+
+  .bl_inputWrapper,
+  .bl_inputWrapper__2column {
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 0 24px;
+    margin-bottom: 29px;
+  }
+
+  .bl_inputWrapper > div,
+  .bl_inputWrapper__2column > div {
+      position: relative;
+      width: calc(50% - 12px);
+      margin-bottom: 27px;
+  }
+
+  .bl_inputWrapper > div::before,
+  .bl_inputWrapper__2column > div::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -28px;
+    width: 100%;
+    height: 0;
+    border-bottom: 1px solid #707070;
+  }
+
+  .bl_inputWrapper > div:nth-child(odd)::after,
+  .bl_inputWrapper__2column > div:nth-child(odd)::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: -12px;
+    width: 0;
+    height: calc(100% + 4px);
+    border-left: 1px solid #707070;
+  }
+
+  .bl_inputWrapper > div .el_hr__mgn28,
+  .bl_inputWrapper__2column > div .el_hr__mgn28 {
+    display: none;
+  }
+
+  .bl_inputWrapper .el_hr__mgn28,
+  .bl_inputWrapper__2column .el_hr__mgn28 {
+    margin-bottom: 0;
+  }
+
+  .bl_inputWrapper__top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 24px;
+  }
+
+  .bl_inputWrapper__top > div {
+      width: calc(50% - 12px);
+  }
+
+  .bl_inputWrapper__top .el_textarea {
+      min-height: 108px;
+  }
+
+  .un_nightPatrol {
+    padding-left: 16px;
+  }
+
+  .un_nightPatrol .bl_title__common {
+      margin-top: 28px;
+  }
+
+  .bl_anchorLink li {
+    width: 20%;
+    padding-right: 24px;
+  }
+
+  .bl_flex__time {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .bl_flex__time > div {
+      margin-bottom: 0;
+  }
+
+  .bl_flex__time .bl_btnWrapper__flex {
+      width: 300px;
+  }
+
+  .bl_flex__1n {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+  }
+
+  .bl_flex__1n > div {
+      margin-bottom: 0;
+  }
+
+  .bl_flex__1n > div:first-child {
+      width: 343px;
+  }
+
+  .bl_flex__1n > div:last-child {
+      flex: 1;
+  }
+
+  .bl_flex__meal {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .bl_flex__meal > div {
+    margin-bottom: 0;
+  }
+
+  .bl_flex__meal > div:first-child {
+    width: 299px;
+  }
+
+  .bl_flex__medicine {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .bl_flex__medicine > div {
+    margin-bottom: 0;
+  }
+
+  .bl_flex__medicine > div:first-child {
+    width: 255px;
+  }
+
+  .bl_flex__dayState {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 0;
+  }
+
+  .bl_flex__dayState > div {
+      width: calc((100% - 48px) / 3);
+  }
+
+  .bl_flex__dayState .bl_label__flex {
+      display: block;
+  }
+
+  .bl_flex__dayState .bl_label__flex.bl_label__flexStart > .bl_label__title {
+      display: block;
+      height: 40px;
+  }
+
+  .bl_flex__dayState .bl_templateModal {
+      width: calc((100vw - 32px) / 3);
+  }
+
+  .bl_2column {
+    column-count: 2;
+    margin-bottom: 56px;
+  }
+}
+
+@media (width >= 1024px) {
+  .bl_btnWrapper__top {
+    position: relative;
+  }
+
+  .bl_btnWrapper__top::after {
+      content: "";
+      display: block;
+      height: 0;
+      width: calc((100% - 48px) / 3);
+  }
+
+  .bl_btnWrapper__top .el_btn,
+  .bl_btnWrapper__top .bl_btnWrapper__hasPhoto {
+      width: calc((100% - 48px) / 3);
+  }
+
+  .bl_ghdWrapper {
+    align-items: flex-start;
+  }
+
+  .bl_ghdWrapper .bl_ghd,
+  .bl_ghdWrapper .el_btn {
+      width: calc((100% - 48px) / 3);
+  }
+
+  .bl_ghdWrapper .el_btn {
+      margin-top: auto;
+  }
+
+  .bl_inputWrapper {
+    position: relative;
+  }
+
+  .bl_inputWrapper::after {
+    content: "";
+    display: block;
+    width: calc((100% - 48px) / 3);
+    height: 0;
+  }
+
+  .bl_inputWrapper > div {
+      width: calc((100% - 48px) / 3);
+  }
+
+  .bl_inputWrapper > div:not(:nth-last-child(-n+3))::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -28px;
+    width: 100%;
+    height: 0;
+    border-bottom: 1px solid #707070;
+  }
+
+  .bl_inputWrapper > div:nth-child(odd)::after {
+    border-left: none;
+  }
+
+  .bl_inputWrapper > div:nth-child(3n+1)::after,
+  .bl_inputWrapper > div:nth-child(3n+2)::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: -12px;
+    width: 0;
+    height: calc(100% + 4px);
+    border-left: 1px solid #707070;
+  }
+
+  .bl_inputWrapper .un_medicine .bl_label__title {
+    padding-right: 8px;
+  }
+
+  .bl_inputWrapper .un_medicine .el_input__w80px {
+    width: min(6.5vw, 80px);
+  }
+
+  .bl_inputWrapper__top > div {
+    width: calc((100% - 48px) / 3);
+  }
+
+  .un_meal .el_input__radio {
+    white-space: nowrap;
+  }
+
+  .un_dayCare {
+    display: block;
+  }
+
+  .un_dayCare .hp_mgnB16 {
+    margin-top: 16px;
+    padding-left: 16px;
+  }
+
+  .bl_anchorLink li {
+    width: calc(100% / 7);
+  }
+}

@@ -1,0 +1,7 @@
+.common-radio button span {
+  width: 100%;
+}
+.common-radio button span svg {
+  width: 15px;
+  height: 100%;
+}

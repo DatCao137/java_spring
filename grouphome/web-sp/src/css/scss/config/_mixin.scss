@@ -1,0 +1,95 @@
+@use '_var' as *;
+
+// Modules
+// -------------------------------------------------------------------
+@mixin el_lv1Heading() {
+}
+
+@mixin el_lv2Heading() {
+}
+
+@mixin el_lv3Heading() {
+}
+
+@mixin el_lv4Heading() {
+}
+
+@mixin el_lv5Heading() {
+}
+
+@mixin el_lv6Heading() {
+}
+
+// Utilities
+// -------------------------------------------------------------------
+@mixin LV() {
+  &:link,
+  &:visited {
+    @content;
+  }
+}
+
+@mixin contentCentering() {
+  max-width: $contWidth;
+  padding-right: $contSpace;
+  padding-left: $contSpace;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include MQ() {
+    max-width: 100%;
+  }
+}
+
+@mixin lastMB0() {
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@mixin lastMR0() {
+  > *:last-child {
+    margin-right: 0;
+  }
+}
+
+// Interactions
+// -------------------------------------------------------------------
+@mixin FH() {
+  &:focus,
+  &:hover {
+    @content;
+  }
+}
+
+@mixin HH() {
+  @media (hover: hover) {
+    @content;
+  }
+}
+
+@mixin HHFH() {
+  @include HH() {
+    @include FH() {
+      @content;
+    }
+  }
+}
+
+@mixin hoverInteraction() {
+  filter: contrast($hoverContrast);
+}
+
+// MediaQuaries
+// -------------------------------------------------------------------
+@mixin MQ($size: m, $minOrMax: 'max') {
+  // vars.scss内の$breakpointのキーか、数値を直接受け入れる
+  $bp: $size;
+  @if map-has-key($breakpoints, $size) {
+    $bp: map-get($breakpoints, $size);
+  }
+
+  @media screen and (#{$minOrMax}-width: $bp + px) {
+    @content;
+  }
+}

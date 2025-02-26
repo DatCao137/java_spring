@@ -1,0 +1,30 @@
+-- Migration script: V20241008082549__seed_data_to_table_m_blc_item_type.sql
+
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(1, 'prefectures', '都道府県');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(2, 'service_form', 'サービス形態');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(3, 'class_division', '級地区分');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(4, 'document_type', '書類種別');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(5, 'pocket_book', '手帳有無');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(6, 'doc_type', '文書種別');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(7, 'req_route', '問合せ経路');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(8, 'relationship', '関係');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(9, 'cust_status', '利用者ステータス');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(10, 'cust_progres', '進捗状況');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(11, 'cust_items', '顧客状況項目');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(12, 'mental_grade', '精神障害手帳等級');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(13, 'physical_grade', '身体障がい手帳等級');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(14, 'car_char', '車椅子有無');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(15, 'hope_items', '希望内容');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(16, 'sex', '性別');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(17, 'application_type', '申込種別');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(18, 'phone_type', '電話種別');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(19, 'support_type', '障がい支援区分');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(20, 'drinking_type', '飲酒種別');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(21, 'smoking_type', '喫煙種別');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(22, 'health_insurance', '健康保険');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(23, 'weeks', '曜日');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(24, 'transfer_type', '送迎種別');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(25, 'transportation_type', '交通手段');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(26, 'money_management', '金銭管理');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(27, 'request_type', '要求内容');
+INSERT INTO `m_blc_item_type`(`id`, `name`, `remark`) VALUES(28, 'group_home_type', '類型');

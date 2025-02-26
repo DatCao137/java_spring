@@ -1,0 +1,47 @@
+#user-specific-table input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+#user-specific-table input[type="time"]{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#user-specific-table input[type="time"]:focus{
+  outline: none;
+}
+
+#user-specific-table input[type="date"] {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#user-specific-table .jpcalendar input {
+  border: none;
+  width: 60px;
+}
+
+#user-specific-table .jpcalendar > div {
+  border: none;
+}
+
+#user-specific-table .jpcalendar > div:hover {
+  border: none;
+  background-color: inherit;
+}
+
+#user-specific-table .jpcalendar input:focus {
+  outline: none;
+}
+
+#user-specific-table .jpcalendar svg {
+  display: none;
+}
+
+#user-specific-table th, #user-specific-table td {
+  text-align: center;
+}

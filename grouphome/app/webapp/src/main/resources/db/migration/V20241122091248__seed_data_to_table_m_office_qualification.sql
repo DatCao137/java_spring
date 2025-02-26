@@ -1,0 +1,62 @@
+-- Migration script: V20241122091248__seed_data_to_table_m_office_qualification.sql
+
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (1, 'common', '自動車運転免許証', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (2, 'common', '二輪運転免許証', '{"period": false, "rangeYear": null}');
+
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (3, 'care', '精神保健福祉士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (4, 'care', '社会福祉士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (5, 'care', '介護福祉士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (6, 'care', '公認心理師', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (7, 'care', '正看護師', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (8, 'care', '准看護師', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (9, 'care', '保健師', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (10, 'care', 'サビ管研修（基礎研修）', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (11, 'care', 'サビ管研修（実践研修）', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (12, 'care', 'サビ管研修（更新研修）', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (13, 'care', '旧サビ管研修・旧児発管研修', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (14, 'care', '相談支援従事者初任者研修（2日間課程）/サビ管補足研修', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (15, 'care', '相談支援従事者初任者研修（5日間課程）', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (16, 'care', '相談支援従事者現任研修', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (17, 'care', '主任相談支援専門員養成研修', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (18, 'care', '介護職員初任者研修/旧ヘルパー2級', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (19, 'care', '介護福祉士実務者研修/介護職員基礎研修/旧ヘルパー1級', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (20, 'care', '社会福祉主事任用資格', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (21, 'care', '児童指導員任用資格', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (22, 'care', '保育士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (23, 'care', '強度行動障害支援者養成研修（基礎研修）', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (24, 'care', '強度行動障害支援者養成研修（実践研修）', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (25, 'care', '移動介護従業者（ガイドヘルパー）', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (26, 'care', '重度訪問介護従業者養成研修（基礎/追加/統合/行動障害支援課程）', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (27, 'care', '同行援護従業者養成研修', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (28, 'care', '行動援護従業者養成研修', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (29, 'care', '喀痰吸引等研修（第一号・第二号・第三号）', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (30, 'care', '障害者ピアサポーター', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (31, 'care', '介護支援専門員', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (32, 'care', '医師', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (33, 'care', '歯科医師', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (34, 'care', '薬剤師', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (35, 'care', '助産師', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (36, 'care', '理学療法士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (37, 'care', '作業療法士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (38, 'care', '言語聴覚士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (39, 'care', '視能訓練士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (40, 'care', '義肢装具士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (41, 'care', '歯科衛生士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (42, 'care', 'あん摩マッサージ指圧師', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (43, 'care', 'はり師・きゅう師', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (44, 'care', '柔道整復師', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (45, 'care', '栄養士（管理栄養士含む）', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (46, 'care', '認知症介護基礎研修', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (47, 'care', '認知症介護実践者研修', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (48, 'care', '福祉用具専門相談員', '{"period": false, "rangeYear": null}');
+
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (49, 'related', '防火防災管理者講習', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (50, 'related', '食品衛生責任者講習', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (51, 'related', '調理師', '{"period": false, "rangeYear": null}');
+
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (52, 'construction', '一級建築士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (53, 'construction', '二級建築士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (54, 'construction', '1級建築施工管理技士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (55, 'construction', '2級建築施工管理技士', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (56, 'construction', '監理技術者資格者', '{"period": false, "rangeYear": null}');
+INSERT INTO `m_office_qualification`(`id`, `type`, `name`, `limit`) VALUES (57, 'construction', '宅地建物取引士', '{"period": false, "rangeYear": null}');

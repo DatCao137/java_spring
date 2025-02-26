@@ -1,0 +1,50 @@
+// -------------------------------------------------------------------
+// Variables
+// -------------------------------------------------------------------
+// Generals
+// -------------------------------------------------------------------
+$contSpaceValue: 15;
+$contSpace: $contSpaceValue + px;
+$innerContWidthValue: 1040;
+$contWidth: $innerContWidthValue + $contSpaceValue * 2 + px;
+
+//
+//Media-queries
+//
+$breakpoints: (
+  's': 375,
+  'm': 768,
+);
+
+// Colors
+// -------------------------------------------------------------------
+$c_accent: #ff0000;
+$c_theme: #0000ff;
+$c_base: #00ff00;
+$c_txt: #222;
+
+// Semantic Colors
+// -------------------------------------------------------------------
+
+// Texts
+// -------------------------------------------------------------------
+$ff_en: serif;
+$ff_num: sans-serif;
+$ff_base: sans-serif;
+$ff_serif: serif;
+$fz_base: 1rem;
+$fz_base__sp: 0.75rem;
+$lht_base: 1.5;
+
+// Interactions
+// -------------------------------------------------------------------
+
+//
+//Fiter
+//
+$hoverContrast: 1.5;
+
+//
+//Transition
+//
+$transSpeed: 0.25s;

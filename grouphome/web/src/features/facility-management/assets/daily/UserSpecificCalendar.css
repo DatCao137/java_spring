@@ -1,0 +1,11 @@
+#user-specific-calendar .jpcalendar input {
+  width: 100%;
+  background-color: inherit;
+  text-align: center;
+  font-weight: 600;
+  font-size: 120%;
+}
+
+#user-specific-calendar .jpcalendar svg {
+  display: none;
+}

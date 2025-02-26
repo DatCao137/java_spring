@@ -1,0 +1,62 @@
+.un_qrWrapper {
+  position: relative;
+  display: grid;
+  place-content: center;
+  place-items: center;
+  max-width: 500px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.un_qrWrapper::before,
+.un_qrWrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(calc(1px - 100%));
+  z-index: -1;
+  width: 50vw;
+  height: 100%;
+  background-color: #fff;
+}
+
+.un_qrWrapper::after {
+  left: auto;
+  right: 0;
+  transform: translateX(calc(100% - 1px));
+}
+
+.un_qrScan .bl_logo {
+  padding-top: 50px;
+  background-color: #fff;
+}
+
+.un_qrScan p {
+  background-color: #fff;
+}
+
+.un_qrScan p:has(.el_txt__link) {
+  padding: 40px 0 50px;
+}
+
+.un_qrScanArea {
+  position: relative
+}
+
+.un_qrScanError {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 1%;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}

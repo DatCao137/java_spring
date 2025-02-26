@@ -1,0 +1,172 @@
+import java.text.SimpleDateFormat
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.flywaydb:flyway-mysql:10.17.2")
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.1'
+    id 'io.spring.dependency-management' version '1.1.5'
+    id "org.flywaydb.flyway" version "10.17.2"
+    id "org.springdoc.openapi-gradle-plugin" version "1.9.0"
+}
+
+group = 'grouphome'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(22)
+    }
+}
+
+jar {
+    enabled = false
+}
+
+bootJar { // archiveFileNameで一項目にまとめることもできる
+    archiveBaseName = "grouphome"
+    version = "0.0.1"
+    archiveClassifier = 'SNAPSHOT'
+    archiveExtension = 'jar'
+}
+
+bootRun { //debug用にgradleからJVMへ引数を渡す
+    systemProperties = System.properties // gradleのシステムプロパティをjavaに渡す
+    // 上記の記述で、以下の引数がjdkに渡される
+    jvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5050"] // デバッガの起動を待つ必要なし
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-mysql'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.session:spring-session-jdbc'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation platform('software.amazon.awssdk:bom:2.26.30')
+    implementation 'software.amazon.awssdk:s3'
+    implementation project(":core")
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.hibernate:hibernate-core:6.0.0.Final'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+task createMigration {
+    doLast {
+        // Generate the version based on the current timestamp
+        def version = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())
+
+        // Check if description (desc) is provided as a parameter
+        if (!project.hasProperty('desc')) {
+            throw new Exception("Please provide a description using -Pdesc=\"your_description\"")
+        }
+
+        // Get the description and replace spaces with underscores
+        def description = project.desc.replace(' ', '_')
+
+        // Create the main migration file with timestamp as version
+        def fileName = "V${version}__${description}.sql"
+        def migrationDir = file('src/main/resources/db/migration')
+
+        // Ensure the migration directory exists
+        if (!migrationDir.exists()) {
+            migrationDir.mkdirs()
+        }
+
+        def migrationFile = new File(migrationDir, fileName)
+
+        // Check if the migration file already exists
+        if (migrationFile.exists()) {
+            println "Migration file already exists: ${migrationFile.path}"
+        } else {
+            // Create a new migration file with a template
+            migrationFile.text = "-- Migration script: ${fileName}\n\n-- Write your migration SQL here"
+            println "Migration file created: ${migrationFile.path}"
+        }
+
+        // If -Pundo=true is provided, create the undo migration file
+        if (project.hasProperty('undo') && project.undo.toBoolean()) {
+            def undoFileName = "U${version}__${description}_undo.sql"
+            def undoMigrationFile = new File(migrationDir, undoFileName)
+
+            // Check if the undo migration file already exists
+            if (undoMigrationFile.exists()) {
+                println "Undo migration file already exists: ${undoMigrationFile.path}"
+            } else {
+                // Create a new undo migration file with a template
+                undoMigrationFile.text = "-- Undo script for: V${version}__${description}.sql\n\n-- Write your undo SQL here"
+                println "Undo migration file created: ${undoMigrationFile.path}"
+            }
+        }
+    }
+}
+
+def getEnvOrDefault(String key, String defaultValue) {
+    return System.getenv(key) ?: defaultValue
+}
+
+def resolvePlaceholders(String propertyValue) {
+    def matcher = propertyValue =~ /\$\{([^}]+)\}/
+    def result = propertyValue
+
+    matcher.each { match ->
+        def parts = match[1].split(':')
+        def envVar = parts[0]
+        def defaultVal = parts.size() > 1 ? parts[1] : ''
+        def resolvedValue = getEnvOrDefault(envVar, defaultVal)
+        result = result.replace(match[0], resolvedValue)
+    }
+
+    return result
+}
+
+// Load properties from application.properties
+def properties = new Properties()
+file("src/main/resources/application.properties").withInputStream { stream ->
+    properties.load(stream)
+}
+
+flyway {
+    // Resolve placeholders from properties
+    url = resolvePlaceholders(properties['spring.datasource.url'])
+    user = resolvePlaceholders(properties['spring.datasource.username'])
+    password = resolvePlaceholders(properties['spring.datasource.password'])
+    locations = ['filesystem:src/main/resources/db/migration']
+    cleanDisabled = false
+    outOfOrder = true
+}
+
