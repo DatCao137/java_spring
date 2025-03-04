@@ -13,4 +13,5 @@ import grouphome.webapp.dto.requests.blc_common.PagerDto;
 @EqualsAndHashCode(callSuper=true)
 public class EmployeeRequestDto extends PagerDto {
     private String name;
+    private Map<String, String> filter;
 }

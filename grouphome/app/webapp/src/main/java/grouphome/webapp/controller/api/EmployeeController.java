@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import grouphome.webapp.service.define.HomeService;
-
 import grouphome.webapp.service.define.EmployeeService;
 import grouphome.webapp.dto.responses.employee.ListEmployeeResponseDto;
 import grouphome.webapp.dto.requests.employee.EmployeeRequestDto;
@@ -26,10 +25,12 @@ import java.util.List;
 @RestController
 public class EmployeeController extends BaseController {
     private final HomeService homeService;
+    private final EmployeeService employeeService;
 
     @Autowired
-    public EmployeeController(HomeService homeService) {
-        this.homeService = homeService;
+    public EmployeeController(HomeService homeService, EmployeeService employeeService) {
+        this.homeService = homeService; 
+        this.employeeService = employeeService;
     }
 
     // @PostMapping("/employee")
@@ -38,11 +39,11 @@ public class EmployeeController extends BaseController {
     //     return returnSuccess(homeList);
 	// }
 
-    // @PostMapping("/employee")
-	// public ResponseEntity<BaseResponse<List<ListEmployeeResponseDto>>> list(@RequestBody EmployeeRequestDto request) {
-    //     PagerResponse<List<ListEmployeeResponseDto>> employeeList = employeeService.getEmployeeList(request);
-    //     return returnSuccess(employeeList);
-	// }
+    @PostMapping("/employee")
+	public ResponseEntity<BaseResponse<List<ListEmployeeResponseDto>>> list(@RequestBody EmployeeRequestDto request) {
+        PagerResponse<List<ListEmployeeResponseDto>> employeeList = employeeService.getEmployeeList(request);
+        return returnSuccess(employeeList);
+	}
 
     
     // @PostMapping("/home/save")

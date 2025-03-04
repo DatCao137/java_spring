@@ -28,8 +28,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import grouphome.webapp.dto.requests.employee.*;
+import grouphome.webapp.dto.responses.employee.*;
 
+import grouphome.webapp.repository.define.employee.*;
 
+import grouphome.webapp.dto.responses.employee.ListEmployeeResponseDto;
+import grouphome.webapp.repository.define.employee.EmployeeRepository;
 import grouphome.webapp.service.define.EmployeeService;
 
 @Service
@@ -37,7 +42,7 @@ import grouphome.webapp.service.define.EmployeeService;
 public class EmployeeServiceImpl implements EmployeeService {
     // protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    // private final EmployeeRepository employeeRepository;
+     private final EmployeeRepository employeeRepository;
 
     @Autowired
     private UnitService unitService;
@@ -48,36 +53,36 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private AddressRepository addressRepository;
 
-// @Autowired
-//     public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
-//         this.employeeRepository = employeeRepository;
-//     }
+@Autowired
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
     /**
      * Get home info list
      *
-     * @param request HomeRequestDto
-     * @return PagerResponse<List<ListResponseDto>>
+     * @param request EmployeeRequestDto
+     * @return PagerResponse<List<ListEmployeeResponseDto>>
      */
     // @Override
-    // public PagerResponse<List<ListResponseDto>> getEmployeeList(EmployeeRequestDto request) {
-    //     Map<String, Object> result = employeeRepository.getEmployeeList(request);
-    //     List<ListEmployeeResponseDto> employeeList = new ArrayList<>();
+    public PagerResponse<List<ListEmployeeResponseDto>> getEmployeeList(EmployeeRequestDto request) {
+        Map<String, Object> result = employeeRepository.getEmployeeList(request);
+        List<ListEmployeeResponseDto> employeeList = new ArrayList<>();
 
-    //     @SuppressWarnings("unchecked")
-    //     List<Object[]> data = (List<Object[]>)result.get("data");
-    //     for (Object[] row : data) {
-    //         ListEmployeeResponseDto dto = this.getListResponseDto(row);
-    //         if (dto == null)
-    //             continue;
-    //         employeeList.add(dto);
-    //     }
-    //     PagerResponse<List<ListEmployeeResponseDto>> ret = new PagerResponse<List<ListEmployeeResponseDto>>(employeeList);
-    //     ret.setTotalRecord((Integer)result.get("total"));
-    //     ret.setTotalPage((Integer)result.get("totalPage"));
-    //     return ret;
-    // }
-
+        @SuppressWarnings("unchecked")
+        List<Object[]> data = (List<Object[]>)result.get("data");
+        for (Object[] row : data) {
+            ListEmployeeResponseDto dto = this.getListEmployeeResponseDto(row);
+            if (dto == null)
+                continue;
+            employeeList.add(dto);
+        }
+        PagerResponse<List<ListEmployeeResponseDto>> ret = new PagerResponse<List<ListEmployeeResponseDto>>(employeeList);
+        ret.setTotalRecord((Integer)result.get("total"));
+        ret.setTotalPage((Integer)result.get("totalPage"));
+        return ret;
+    }
+    
     // @Override
     // @Transactional
     // public SaveInfoResponseDto saveHomeInfo(SaveHomeRequestDto request) {
@@ -155,27 +160,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     //     return homeRepository.findAll();
     // }
 
-    // private ListResponseDto getListResponseDto(Object[] row) {
-    //     if (row == null)
-    //         return null;
-    //     if (row.length == 0)
-    //         return null;
-    //     int nPos = 0;
-    //     ListResponseDto dto = new ListResponseDto();
-    //     dto.setId(Exchanger.toInt(row[nPos++]));
-    //     dto.setHomeName(Exchanger.toString(row[nPos++]));
-    //     dto.setBranchId(Exchanger.toInt(row[nPos++]));
-    //     dto.setBranchName(Exchanger.toString(row[nPos++]));
-    //     dto.setPostNo(Exchanger.toString(row[nPos++]));
-    //     dto.setPrefId(Exchanger.toInt(row[nPos++]));
-    //     dto.setPrefName(Exchanger.toString(row[nPos++]));
-    //     dto.setAddrId(Exchanger.toInt(row[nPos++]));
-    //     dto.setCity(Exchanger.toString(row[nPos++]));
-    //     dto.setTown(Exchanger.toString(row[nPos++]));
-    //     dto.setTel(Exchanger.toString(row[nPos++]));
-    //     dto.setUnits(Exchanger.toString(row[nPos++]));
-    //     dto.setUpdatedAtHome(Exchanger.toString(row[nPos++]));
-    //     dto.setUpdatedAtAddr(Exchanger.toString(row[nPos++]));
-    //     return dto;
-    // }
+    private ListEmployeeResponseDto getListEmployeeResponseDto(Object[] row) {
+        if (row == null)
+            return null;
+        if (row.length == 0)
+            return null;
+        int nPos = 0;
+        ListEmployeeResponseDto dto = new ListEmployeeResponseDto();
+        dto.setId(Exchanger.toInt(row[nPos++]));
+        dto.setName(Exchanger.toString(row[nPos++]));
+        dto.setBirthDay(Exchanger.toString(row[nPos++]));
+        dto.setAddress(Exchanger.toString(row[nPos++]));
+        dto.setMessage(Exchanger.toString(row[nPos++]));
+        dto.setUnitId(Exchanger.toInt(row[nPos++]));
+        dto.setUpdatedAt(Exchanger.toString(row[nPos++]));
+        return dto;
+    }
 }
