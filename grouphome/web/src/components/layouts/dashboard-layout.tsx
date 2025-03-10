@@ -187,6 +187,38 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         },
       ],
     },
+    {
+      name: 'QUẢN LÝ',
+      to: '/app/office',
+      class: 'office',
+      hasChildren: true,
+      children: [
+        {
+          name: 'Quản Lý Người Làm',
+          to: '/app/employee',
+        },
+        // {
+        //   name: 'ホーム情報',
+        //   to: '/app/home',
+        // },
+        // {
+        //   name: '職員管理',
+        //   to: '/app/staff',
+        // },
+        // {
+        //   name: '文書管理',
+        //   to: '/app/docManage',
+        // },
+        // {
+        //   name: '問合わせ管理',
+        //   to: '/app/under-preparation',
+        // },
+        // {
+        //   name: '人事情報連携',
+        //   to: '/app/under-preparation',
+        // },
+      ],
+    },
   ].filter(Boolean) as SideNavigationItem[];
   return (
     <div className="flex min-h-screen w-full flex-col">

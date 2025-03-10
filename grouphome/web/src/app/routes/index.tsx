@@ -202,6 +202,19 @@ export const createRouter = (queryClient: QueryClient) =>
       ],
     },
     {
+      path: '/app/employee',
+      element: <AppRoot />,
+      children: [
+        {
+          path: '',
+          lazy: async () => {
+            const { EmployeeRoute } = await import('./app/employee-management/EmployeeRoute');
+            return { Component: EmployeeRoute };
+          },
+        },
+      ],
+    },
+    {
       path: '*',
       lazy: async () => {
         const { NotFoundRoute } = await import('./not-found');

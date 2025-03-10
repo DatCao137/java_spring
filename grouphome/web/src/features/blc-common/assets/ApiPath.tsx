@@ -115,3 +115,6 @@ export const roomManageDelete              = '/api/roomManage/delete/';
 export const roomManageMaps                = '/api/roomManage/maps';
 export const roomManageIsFree              = '/api/roomManage/isFree';
 export const roomManageCalc                = '/api/roomManage/calc';
+
+
+export const Employee                          = '/api/employee';

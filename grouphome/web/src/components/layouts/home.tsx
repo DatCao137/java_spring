@@ -168,6 +168,41 @@ export default function Home() {
           </li>
         </ul>
       </div>
+      <div className="bl_card">
+        <h1 className="bl_cardTitle bl_cardTitle_office">QUẢN LÝ </h1>
+        <ul className="bl_cardLink bl_cardLink_office">
+          <li>
+            <NavLink to="/app/office">
+            QUẢN LÝ
+            </NavLink>
+          </li>
+          {/* <li>
+            <NavLink to="/app/home">
+              ホーム情報
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/app/staff">
+              職員管理
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/app/docManage">
+              文書管理
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="">
+              問合わせ管理（通知機能-通知先設定）
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="">
+              人事情報連携
+            </NavLink>
+          </li> */}
+        </ul>
+      </div>
     </div>
     </>
   )

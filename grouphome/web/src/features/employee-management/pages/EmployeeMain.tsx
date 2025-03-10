@@ -1,17 +1,26 @@
 import { useEffect, useRef, useState } from 'react'
 import { HomeSave as SaveApiPath, HomeDel as DelApiPath } from '@/features/blc-common/assets/ApiPath';
-import { HomeCss } from '../assets/HomeCss'
-import { HomeTable } from '../components/home/HomeTable'
-import { FormData, HomeInfoSaveDto } from '../types/Home'
-import { CreateOrEditPopup } from '../components/home/HomeCreateOrEdit'
+import { EmployeeCss } from '../assets/EmployeeCss'
+
+//import { FormData, HomeInfoSaveDto } from '../types/Home'
+// import { CreateOrEditPopup } from '../components/home/HomeCreateOrEdit'
 import { Post, Del } from '@/features/blc-common/utils/ServerRequest';
 import { Popup } from '@/components/elements/Popup'
 import { PopupConfirm } from '@/components/elements/PopupConfirm'
 import { checkDataDifferent } from '@/components/elements/common/CommonUtils';
 import { TEXT_CONFIRM_DATA_CHANGE } from '@/features/blc-common/assets/StringConst';
 import { PopupConfirmParams } from '@/components/elements/Common';
-import { UnitInfo } from '../components/unit/UnitInfo'
+// import { UnitInfo } from '../components/unit/UnitInfo'
 import { ButtonProps, ButtonType, TableOpeButtons } from '@/components/elements/TableOpeButtons';
+import { UnitInfo } from '@/features/office-management/components/unit/UnitInfo';
+//import { HomeTable } from '@/features/office-management/components/home/HomeTable';
+//import {FormData, HomeInfoSaveDto } from '@/features/employee-management/types/home';
+
+
+import { CreateOrEditPopup } from '@/features/office-management/components/home/HomeCreateOrEdit';
+import { EmployeeTable } from '../components/home/EmployeeTable';
+import { FormData ,HomeInfoSaveDto } from '@/features/office-management/types/Home';
+ //import { FormData,EmployeeInfoSaveDto } from '../types/Employee';
 
 type FormDataDto = FormData;
 const defaultFormData: FormDataDto = {
@@ -19,8 +28,9 @@ const defaultFormData: FormDataDto = {
   prefId: '', addrId: null, city: '', town: '', postNo: '', tel: '',
   units: '', updatedAtAddr: '', updatedAtHome: ''
 };
-export const HomeMain = () => {
-  const pageTitle = 'ホーム情報'
+
+export const EmployeeMain = () => {
+  const pageTitle = 'QUẢN LÝ NGƯỜI LÀM'
 
   const [homeId, setHomeId] = useState<number | null>(null);
   const [branchId, setBranchId] = useState<number | null>(null);
@@ -101,6 +111,16 @@ export const HomeMain = () => {
     const postNo = rowData.postNo?.replace('-', '');
 
     let dataEdit = {
+      // id: rowData.id,
+      // name: rowData.name,
+      // birthDay: rowData.birthDay,
+      // address: rowData.address,
+      // message: rowData.message,
+      // unitId: rowData.unitId,
+      // postNo1st: postNo?.substring(0, 3) ?? '',
+      // postNo2nd: postNo?.substring(3) ?? '',
+      // postNo: postNo,
+      // updatedAt: rowData.updatedAtAddr,
       id: rowData.id,
       homeName: rowData.homeName,
       branchId: rowData.branchId,
@@ -162,6 +182,13 @@ export const HomeMain = () => {
     }
 
     let saveData = {
+      // id: data.id,
+      // birthDay: data.birthDay,
+      // address: data.address,
+      // message: data.message,
+      // unitId: data.unitId,
+      // postNo: data.postNo,
+      // updatedAt: data.updatedAt,
       homeId: data.id,
       addrId: data.addrId,
       branchId: data.branchId,
@@ -190,7 +217,7 @@ export const HomeMain = () => {
     } else {
       doSave(saveData);
     }
-  };
+   };
 
   const doSave = (data: HomeInfoSaveDto) => {
     Post({
@@ -218,16 +245,16 @@ export const HomeMain = () => {
   return (
     <>
       <style>
-        <HomeCss />
+        <EmployeeCss />
       </style>
       <div id="home">
         <TableOpeButtons items={[
-          { name: "追加", buttonType: ButtonType.Add, cb: handleOpenPopupCreate },
-          { name: "編集", buttonType: ButtonType.Edit, cb: handleOpenPopupEdit, selectedState: homeId },
-          { name: "削除", buttonType: ButtonType.Del, cb: openDeletePopup, selectedState: homeId },
+          { name: "Thêm", buttonType: ButtonType.Add, cb: handleOpenPopupCreate },
+          { name: "Sửa", buttonType: ButtonType.Edit, cb: handleOpenPopupEdit, selectedState: homeId },
+          { name: "Xóa", buttonType: ButtonType.Del, cb: openDeletePopup, selectedState: homeId },
         ] as ButtonProps[]} />
         
-        <div id="homeList"><HomeTable cbSelect={chgTgtData} seq={seq} resetSelections={resetSelections} /></div>
+        <div id="homeList"><EmployeeTable cbSelect={chgTgtData} seq={seq} resetSelections={resetSelections} /></div>
 
         {homeId &&
           <div id="unitInfo">
@@ -238,7 +265,8 @@ export const HomeMain = () => {
         <Popup title={titleText} doText={btnText}
           isOpen={isPopupOpen}
           onClose={handleClosePopup} onOK={handleSaveData}
-          contents={contentData} />
+          contents={contentData} 
+          />
 
         <PopupConfirm
           param={confirmParam}
