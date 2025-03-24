@@ -18,7 +18,7 @@ const defaultFilter: TableFilterDef = {
   birthDay:  null,
   address: null,
   message: null,
-  unitId:  null
+  unitId:  1
 };
 
 function exchangeData(row:[]): EmployeeListColumns[] {

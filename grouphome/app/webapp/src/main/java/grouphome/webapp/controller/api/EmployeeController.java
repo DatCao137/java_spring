@@ -19,8 +19,10 @@ import grouphome.webapp.service.define.EmployeeService;
 import grouphome.webapp.dto.responses.employee.ListEmployeeResponseDto;
 import grouphome.webapp.dto.requests.employee.EmployeeRequestDto;
 
-
+import grouphome.webapp.dto.responses.employee.*;
+import grouphome.webapp.dto.requests.employee.*;
 import java.util.List;
+import grouphome.webapp.entity.EmployeeEntity;
 
 @RestController
 public class EmployeeController extends BaseController {
@@ -46,51 +48,51 @@ public class EmployeeController extends BaseController {
 	}
 
     
-    // @PostMapping("/home/save")
-    // @Operation(
-    //     summary = "Save a home & Address",
-    //     description = "Save a home & Address",
-    //     responses = {
-    //         @ApiResponse(
-    //             responseCode = "200",
-    //             description = "HomeInfo save successfully",
-    //             content = @Content(mediaType = "application/json", schema = @Schema(implementation = BaseResponse.class))
-    //         ),
-    //         @ApiResponse(
-    //             responseCode = "400",
-    //             description = "Invalid input",
-    //             content = @Content(mediaType = "application/json")
-    //         )
-    //     }
-    // )
-    // public ResponseEntity<BaseResponse<SaveInfoResponseDto>> save(@Valid @RequestBody SaveHomeRequestDto request) {
-    //     SaveInfoResponseDto homeInfo = homeService.saveHomeInfo(request);
-    //     return returnSuccess(new BaseResponse<>(homeInfo));
-    // }
+    @PostMapping("/employee/save")
+    @Operation(
+        summary = "Save a employee",
+        description = "Save a employee",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "Employee save successfully",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation = BaseResponse.class))
+            ),
+            @ApiResponse(
+                responseCode = "400",
+                description = "Invalid input",
+                content = @Content(mediaType = "application/json")
+            )
+        }
+    )
+    public ResponseEntity<BaseResponse<SaveInfoEmployeeResponseDto>> save(@Valid @RequestBody SaveEmployeeRequestDto request) {
+        SaveInfoEmployeeResponseDto employeeInfo = employeeService.saveEmployeeInfo(request);
+        return returnSuccess(new BaseResponse<>(employeeInfo));
+    }
 
-    // @DeleteMapping("/home/delete/{id}")
-    // @Operation(
-    //     summary = "Delete an home",
-    //     description = "Delete an home by its ID",
-    //     responses = {
-    //         @ApiResponse(
-    //             responseCode = "200",
-    //             description = "Home deleted successfully",
-    //             content = @Content(mediaType = "application/json", schema = @Schema(implementation = BaseResponse.class))
-    //         ),
-    //         @ApiResponse(
-    //             responseCode = "404",
-    //             description = "Home not found",
-    //             content = @Content(mediaType = "application/json")
-    //         )
-    //     }
-    // )
-    // public ResponseEntity<BaseResponse<String>> delete(@PathVariable(value = "", name = "id", required = true) Long id) {
-    //     return returnSuccess(new BaseResponse<>("Delete home info with ID: " + homeService.deleteHomeInfo(id) + " successfully!"));
-    // }
+    @DeleteMapping("/employee/delete/{id}")
+    @Operation(
+        summary = "Delete an employee",
+        description = "Delete an employee by its ID",
+        responses = {
+            @ApiResponse(
+                responseCode = "200",
+                description = "employee deleted successfully",
+                content = @Content(mediaType = "application/json", schema = @Schema(implementation = BaseResponse.class))
+            ),
+            @ApiResponse(
+                responseCode = "404",
+                description = "employee not found",
+                content = @Content(mediaType = "application/json")
+            )
+        }
+    )
+    public ResponseEntity<BaseResponse<String>> delete(@PathVariable(value = "", name = "id", required = true) Long id) {
+        return returnSuccess(new BaseResponse<>("Delete employee info with ID: " + employeeService.deleteEmployeeInfo(id) + " successfully!"));
+    }
 
-    // @GetMapping("/home/list")
-    // public ResponseEntity<BaseResponse<List<OfficeHomeEntity>>> getAll() {
-    //     return returnSuccess(new BaseResponse<>(homeService.getAll()));
-    // }
+    @GetMapping("/employee/list")
+    public ResponseEntity<BaseResponse<List<EmployeeEntity>>> getAll() {
+        return returnSuccess(new BaseResponse<>(employeeService.getAll()));
+    }
 }

@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,8 @@ import grouphome.webapp.repository.define.employee.*;
 import grouphome.webapp.dto.responses.employee.ListEmployeeResponseDto;
 import grouphome.webapp.repository.define.employee.EmployeeRepository;
 import grouphome.webapp.service.define.EmployeeService;
-
+import grouphome.webapp.entity.EmployeeEntity;
+import org.springframework.web.multipart.MultipartFile;
 @Service
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
@@ -83,82 +85,81 @@ public class EmployeeServiceImpl implements EmployeeService {
         return ret;
     }
     
-    // @Override
-    // @Transactional
-    // public SaveInfoResponseDto saveHomeInfo(SaveHomeRequestDto request) {
-    //     // Check if homeInfoId exists and is not deleted
-    //     if (request.getHomeId() != null && !homeRepository.existsById(request.getHomeId())) {
-    //         throw new ApiException(ResponseCodeAndMsg.BAD_REQUEST,
-    //                 "Home Info with ID: " + request.getHomeId() + " does not exist or is deleted");
-    //     }
+    @Override
+    @Transactional
+    public SaveInfoEmployeeResponseDto saveEmployeeInfo(SaveEmployeeRequestDto request) {
+        // Check if homeInfoId exists and is not deleted
+        if (request.getId() != null && !employeeRepository.existsById(request.getId())) {
+            throw new ApiException(ResponseCodeAndMsg.BAD_REQUEST,
+                    "Home Info with ID: " + request.getId() + " does not exist or is deleted");
+        }
 
-    //     Long addrId = saveBlcAddrEntity(request);
-    //     request.setAddrId(addrId);
-    //     Long homeId = this.saveOfficeHomeEntity(request);
-    //     return new SaveInfoResponseDto(homeId, addrId);
-    // }
+        // Long addrId = saveBlcAddrEntity(request);
+        // request.setAddrId(addrId);
+        Long id = this.saveEmployeeEntity(request);
+        return new SaveInfoEmployeeResponseDto(id);
+    }
+    @Transactional
+    private Long saveEmployeeEntity(SaveEmployeeRequestDto dto) {
+        Long id = dto.getId();
+        /* TODO : idが指定されて無いのは論理削除のため、新規インスタンス作成は暫定 */
+        EmployeeEntity entity = (id == null)
+                ? new EmployeeEntity()
+                   : this.employeeRepository.findById4Update(id).orElseGet(EmployeeEntity::new);
 
-    // @Transactional
-    // private Long saveOfficeHomeEntity(SaveHomeRequestDto dto) {
-    //     Long id = dto.getHomeId();
-    //     /* TODO : idが指定されて無いのは論理削除のため、新規インスタンス作成は暫定 */
-    //     OfficeHomeEntity entity = (id == null)
-    //             ? new OfficeHomeEntity()
-    //                : this.homeRepository.findById4Update(id).orElseGet(OfficeHomeEntity::new);
+        if((entity.getUpdatedAt() != null)
+        && (!entity.getUpdatedAt().isEqual(dto.getUpdatedAt()))) {
+            throw new ApiException(ResponseCodeAndMsg.CONFLICT, "他のユーザに更新されています。");
+        }
 
-    //     if((entity.getUpdatedAt() != null)
-    //     && (!entity.getUpdatedAt().isEqual(dto.getUpdatedAtHome()))) {
-    //         throw new ApiException(ResponseCodeAndMsg.CONFLICT, "他のユーザに更新されています。");
-    //     }
+        entity.setName(dto.getName());
+        entity.setBirthDay(dto.getBirthDay());
+        entity.setAddress(dto.getAddress());
+        entity.setMessage(dto.getMessage());
+        //entity.setUnitId(dto.getUnitId());
+        entity.setUpdatedAt(dto.getUpdatedAt());
+        EmployeeEntity ret = this.employeeRepository.save(entity);
+        return ret.getId();
+    }
 
-    //     entity.setName(dto.getName());
-    //     entity.setBranchId(dto.getBranchId());
-    //     entity.setSameBranch(dto.getSameBranch());
-    //     entity.setAddrId(dto.getAddrId());
-    //     entity.setContents(dto.getContents());
-    //     entity.setUpdatedAt(dto.getUpdatedAtHome());
-    //     OfficeHomeEntity ret = this.homeRepository.save(entity);
-    //     return ret.getId();
-    // }
+    /**
+     * Delete an home info
+     *
+     * @param id Long
+     */
+    @Override
+    @Transactional
+    public Long deleteEmployeeInfo(Long id) {
+        Optional<EmployeeEntity> optionalEmployeeInfo = employeeRepository.findById(id);
+        if (optionalEmployeeInfo.isPresent()) {
+            EmployeeEntity employeeInfo = optionalEmployeeInfo.get();
+            try {
+                List<OfficeUnitEntity> units = unitRepository.findByHomeId(id);
+                unitService.deleteUnits(units);
 
-    // /**
-    //  * Delete an home info
-    //  *
-    //  * @param id Long
-    //  */
-    // @Override
-    // @Transactional
-    // public Long deleteHomeInfo(Long id) {
-    //     Optional<OfficeHomeEntity> optionalHomeInfo = homeRepository.findById(id);
-    //     if (optionalHomeInfo.isPresent()) {
-    //         OfficeHomeEntity homeInfo = optionalHomeInfo.get();
-    //         try {
-    //             List<OfficeUnitEntity> units = unitRepository.findByHomeId(id);
-    //             unitService.deleteUnits(units);
-
-    //             Optional<BlcAddrEntity> addr = addressRepository.findById(homeInfo.getAddrId());
-    //             addr.ifPresent(x -> {
-    //                 x.setDeletedAt(LocalDateTime.now());
-    //                 addressRepository.save(x);
-    //             });
-    //             homeInfo.setDeletedAt(LocalDateTime.now());
-    //             homeRepository.save(homeInfo);
-    //             return id;
-    //         } catch (OptimisticLockingFailureException e) {
-    //             throw new OptimisticLockingFailureException(e.getMessage());
-    //         }
-    //     } else {
-    //         throw new ApiException(ResponseCodeAndMsg.BAD_REQUEST, "Home info with id " + id + " not found");
-    //     }
-    // }
+                // Optional<BlcAddrEntity> addr = addressRepository.findById(homeInfo.getAddrId());
+                // addr.ifPresent(x -> {
+                //     x.setDeletedAt(LocalDateTime.now());
+                //     addressRepository.save(x);
+                // });
+                employeeInfo.setDeletedAt(LocalDateTime.now());
+                employeeRepository.save(employeeInfo);
+                return id;
+            } catch (OptimisticLockingFailureException e) {
+                throw new OptimisticLockingFailureException(e.getMessage());
+            }
+        } else {
+            throw new ApiException(ResponseCodeAndMsg.BAD_REQUEST, "Employee info with id " + id + " not found");
+        }
+    }
     // /**
     //  * getAll Home info
     //  * @return List<HomeInfoEntity>
     //  */
-    // @Override
-    // public List<OfficeHomeEntity> getAll() {
-    //     return homeRepository.findAll();
-    // }
+    @Override
+    public List<EmployeeEntity> getAll() {
+        return employeeRepository.findAll();
+    }
 
     private ListEmployeeResponseDto getListEmployeeResponseDto(Object[] row) {
         if (row == null)
@@ -176,4 +177,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         dto.setUpdatedAt(Exchanger.toString(row[nPos++]));
         return dto;
     }
+    // private ImageFileRepository imageFileRepository;
+
+    // public void store(MultipartFile file) throws IOException {
+    //     ImageFile imageFile = new ImageFile();
+    //     imageFile.setFileName(file.getOriginalFilename());
+    //     imageFile.setFileType(file.getContentType());
+    //     imageFile.setData(file.getBytes());
+
+    //     imageFileRepository.save(imageFile);
+    // }
 }

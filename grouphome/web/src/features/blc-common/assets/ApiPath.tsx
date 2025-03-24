@@ -118,3 +118,5 @@ export const roomManageCalc                = '/api/roomManage/calc';
 
 
 export const Employee                          = '/api/employee';
+export const EmployeeSave                      = '/api/employee/save';
+export const EmployeeDel                       = '/api/employee/delete/';

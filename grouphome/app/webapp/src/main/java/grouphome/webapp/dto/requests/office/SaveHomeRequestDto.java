@@ -42,4 +42,5 @@ public class SaveHomeRequestDto extends AddressDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.S") 
     private LocalDateTime updatedAtHome;
+  
 }

@@ -17,5 +17,4 @@ public interface EmployeeRepository extends BaseRepository<EmployeeEntity, Long>
         AND e.deletedAt IS NULL
       """)
   boolean existsById(@NonNull @Param("employeeId") Long employeeId);
-
 }

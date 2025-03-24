@@ -15,4 +15,5 @@ public class ListEmployeeResponseDto {
     private String  message;
     private Integer unitId;
     private String updatedAt;
+    //private byte[] image_employee;
 }

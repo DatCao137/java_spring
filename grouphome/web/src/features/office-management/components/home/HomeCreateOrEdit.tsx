@@ -21,8 +21,9 @@ interface CreateOrEditPopupProps {
 const CreateOrEditPopup = forwardRef(({ formData, setFormData, isMatchedTown, isLoaded }: CreateOrEditPopupProps, ref) => {
     const [selPref, setSelPref] = useState([]);
     const [selBranch, setSelBranch] = useState([]);
-    const handleInputChange = (e: any) => {
+    const handleInputChange = (e: any) => {``
         setValue<FormData>(e, setFormData);
+
     };
 
     const getSelectData = async () => {

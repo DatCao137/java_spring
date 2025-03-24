@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { HomeSave as SaveApiPath, HomeDel as DelApiPath } from '@/features/blc-common/assets/ApiPath';
+//import { HomeSave as SaveApiPath, HomeDel as DelApiPath } from '@/features/blc-common/assets/ApiPath';
 import { EmployeeCss } from '../assets/EmployeeCss'
 
 //import { FormData, HomeInfoSaveDto } from '../types/Home'
@@ -14,28 +14,35 @@ import { PopupConfirmParams } from '@/components/elements/Common';
 import { ButtonProps, ButtonType, TableOpeButtons } from '@/components/elements/TableOpeButtons';
 import { UnitInfo } from '@/features/office-management/components/unit/UnitInfo';
 //import { HomeTable } from '@/features/office-management/components/home/HomeTable';
-//import {FormData, HomeInfoSaveDto } from '@/features/employee-management/types/home';
 
-
-import { CreateOrEditPopup } from '@/features/office-management/components/home/HomeCreateOrEdit';
+      
+//import { CreateOrEditPopup } from '@/features/office-management/components/home/HomeCreateOrEdit';
 import { EmployeeTable } from '../components/home/EmployeeTable';
-import { FormData ,HomeInfoSaveDto } from '@/features/office-management/types/Home';
+//import { FormData ,HomeInfoSaveDto } from '@/features/office-management/types/Home';
+import { CreateOrEditPopup } from '../components/home/EmployeeCreateOrEdit';
+import { EmployeeFormData, EmployeeInfoSaveDto  } from '../types/Employee';
+//import {EmployeeFormData, EmployeeInfoSaveDto } from '@/features/employee-management/types/home';
+import { EmployeeSave as SavApiPath, EmployeeDel as DellApiPath } from '@/features/blc-common/assets/ApiPath';
+type NewType = EmployeeFormData;
+
  //import { FormData,EmployeeInfoSaveDto } from '../types/Employee';
 
-type FormDataDto = FormData;
+type FormDataDto = NewType;
 const defaultFormData: FormDataDto = {
-  id: null, homeName: '', branchId: 0, branchName: '',
-  prefId: '', addrId: null, city: '', town: '', postNo: '', tel: '',
-  units: '', updatedAtAddr: '', updatedAtHome: ''
+  id: null, name: '',  birthDay: '',
+  address: '', unitId: null , message: '', 
+   updatedAt: ''
 };
 
 export const EmployeeMain = () => {
   const pageTitle = 'QUẢN LÝ NGƯỜI LÀM'
 
-  const [homeId, setHomeId] = useState<number | null>(null);
-  const [branchId, setBranchId] = useState<number | null>(null);
+  // const [homeId, setHomeId] = useState<number | null>(null);
+  // const [branchId, setBranchId] = useState<number | null>(null);
+  const [id, setid] = useState<number | null>(null);
+  //const [branchId, setBranchId] = useState<number | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [formData, setFormData] = useState<FormDataDto>(defaultFormData);
+  const [employeeformData, setEmployeeFormData] = useState<FormDataDto>(defaultFormData);
   const [oldFormData, setOldFormData] = useState<FormDataDto>(defaultFormData);
   const [seq, setSeq] = useState(0);
   const [titleText, setTitleText] = useState("");
@@ -56,16 +63,17 @@ export const EmployeeMain = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(true);
   const contentData = <CreateOrEditPopup
     ref={formRef}
-    formData={formData}
-    setFormData={setFormData}
-    isMatchedTown={setIsMatchedTown}
-    isLoaded={setIsLoaded} />;
+    employeeformData={employeeformData}
+    setEmployeeFormData={setEmployeeFormData}
+    //isMatchedTown={setIsMatchedTown}
+    //isLoaded={setIsLoaded} 
+    />;
 
 
-  const chgTgtData = (row: FormData): void => {
+  const chgTgtData = (row: EmployeeFormData): void => {
     setRowData(row);
-    setHomeId(row?.id);
-    setBranchId(row?.branchId);
+    setid(row?.id);
+    //setBranchId(row?.branchId);
   }
 
   const openDeletePopup = () => {
@@ -73,7 +81,7 @@ export const EmployeeMain = () => {
       ...prevState,
       textConfirm: 'OK',
       isShowCancel: true,
-      message: '選択したホーム(' + rowData.homeName + ')を削除しますか？',
+      message: '選択したホーム(' + rowData.name + ')を削除しますか？',
       confirmAction: () => deleteHome(),
       isOpen: true
     }));
@@ -81,8 +89,8 @@ export const EmployeeMain = () => {
 
   const reload = async () => {
     setRowData(null);
-    setHomeId(null);
-    setBranchId(null);
+    setid(null);
+    //setBranchId(null);
     setSeq(seq + 1);
   }
 
@@ -92,15 +100,15 @@ export const EmployeeMain = () => {
   }
 
   const deleteHome = async () => {
-    Del({ apiPath: `${DelApiPath}${homeId}`, params: {} });
+    Del({ apiPath: `${DellApiPath}${id}`, params: {} });
     reload();
   };
 
   const handleOpenPopupCreate = () => {
     setIsLoaded(false);
-    setTitleText(pageTitle + '(追加)');
-    setBtnText('追加');
-    setFormData(defaultFormData);
+    setTitleText(pageTitle + '(Thêm Mới)');
+    setBtnText('Lưu Lại');
+    setEmployeeFormData(defaultFormData);
     setOldFormData(defaultFormData);
     setIsPopupOpen(true)
     setResetSelections(true)
@@ -108,37 +116,37 @@ export const EmployeeMain = () => {
 
   const handleOpenPopupEdit = () => {
     setIsLoaded(false);
-    const postNo = rowData.postNo?.replace('-', '');
-
+    //const postNo = rowData.postNo?.replace('-', '');
+    console.log("sssssssssss", rowData);
     let dataEdit = {
-      // id: rowData.id,
-      // name: rowData.name,
-      // birthDay: rowData.birthDay,
-      // address: rowData.address,
-      // message: rowData.message,
-      // unitId: rowData.unitId,
+      id: rowData.id,
+      name: rowData.name,
+      birthDay: rowData.birthDay,
+      address: rowData.address,
+      message: rowData.message,
+      unitId: rowData.unitId,
       // postNo1st: postNo?.substring(0, 3) ?? '',
       // postNo2nd: postNo?.substring(3) ?? '',
       // postNo: postNo,
-      // updatedAt: rowData.updatedAtAddr,
-      id: rowData.id,
-      homeName: rowData.homeName,
-      branchId: rowData.branchId,
-      branchName: rowData.branchName,
-      prefId: String(rowData.prefId ?? ''),
-      addrId: rowData.addrId,
-      city: rowData.city,
-      town: rowData.town,
-      postNo1st: postNo?.substring(0, 3) ?? '',
-      postNo2nd: postNo?.substring(3) ?? '',
-      postNo: postNo,
-      tel: rowData.tel,
-      units: rowData.units,
-      updatedAtAddr: rowData.updatedAtAddr,
-      updatedAtHome: rowData.updatedAtHome,
+      updatedAt: rowData.updatedAt,
+      // id: rowData.id,
+      // homeName: rowData.homeName,
+      // branchId: rowData.branchId,
+      // branchName: rowData.branchName,
+      // prefId: String(rowData.prefId ?? ''),
+      // addrId: rowData.addrId,
+      // city: rowData.city,
+      // town: rowData.town,
+      // postNo1st: postNo?.substring(0, 3) ?? '',
+      // postNo2nd: postNo?.substring(3) ?? '',
+      // postNo: postNo,
+      // tel: rowData.tel,
+      // units: rowData.units,
+      // updatedAtAddr: rowData.updatedAtAddr,
+      // updatedAtHome: rowData.updatedAtHome,
     };
 
-    setFormData(dataEdit);
+    setEmployeeFormData(dataEdit);
     setOldFormData(dataEdit);
 
     setTitleText(pageTitle + '(編集)');
@@ -147,10 +155,10 @@ export const EmployeeMain = () => {
   };
 
   const handleClosePopup = () => {
-    if (checkDataDifferent(oldFormData, formData)) {
+    if (checkDataDifferent(oldFormData, employeeformData)) {
       setConfirmParam(prevState => ({
         ...prevState,
-        textConfirm: '閉じる',
+        textConfirm: 'Đóng',
         isShowCancel: true,
         message: TEXT_CONFIRM_DATA_CHANGE,
         confirmAction: () => closePopup(),
@@ -173,36 +181,35 @@ export const EmployeeMain = () => {
   };
 
   const handleSaveData = async () => {
-    let data = formData
-
-    const isValid = await formRef.current?.validateForm();
-
+    let data = employeeformData
+    console.log("+++++++++++++++++++: ", data);
+    const isValid = await formRef.current?.validateForm();  
     if (!isValid) {
       return;
     }
-
+    
     let saveData = {
-      // id: data.id,
-      // birthDay: data.birthDay,
-      // address: data.address,
-      // message: data.message,
-      // unitId: data.unitId,
+      id: data.id,
+      name: data.name,
+      birthDay: data.birthDay,
+      address: data.address,
+      message: data.message,
+      unitId: data.unitId,
+      updatedAt: data.updatedAt,
+      // homeId: data.id,
+      // addrId: data.addrId,
+      // branchId: data.branchId,
+      // name: data.homeName,
+      // sameBranch: false,
       // postNo: data.postNo,
-      // updatedAt: data.updatedAt,
-      homeId: data.id,
-      addrId: data.addrId,
-      branchId: data.branchId,
-      name: data.homeName,
-      sameBranch: false,
-      postNo: data.postNo,
-      prefId: data.prefId,
-      city: data.city,
-      town: data.town,
-      tel: data.tel,
-      fax: '',
-      contents: '{}',
-      updatedAtHome: data.updatedAtHome,
-      updatedAtAddr: data.updatedAtAddr,
+      // prefId: data.prefId,
+      // city: data.city,
+      // town: data.town,
+      // tel: data.tel,
+      // fax: '',
+      // contents: '{}',
+      // updatedAtHome: data.updatedAtHome,
+      // updatedAtAddr: data.updatedAtAddr,
     }
     if (isMatchedTown === false) {
       setConfirmParam(prevState => ({
@@ -219,15 +226,18 @@ export const EmployeeMain = () => {
     }
    };
 
-  const doSave = (data: HomeInfoSaveDto) => {
+  const doSave = (data: EmployeeInfoSaveDto) => {
+    console.log('8888888', data);
+    data.unitId = 1;
     Post({
-      apiPath: SaveApiPath,
+      apiPath: SavApiPath,
       params: data,
-      message: 'ホーム情報を' + btnText + 'しました。',
+      //message: 'ホーム情報を' + btnText + 'しました。',
+      message: 'Đã lưu',
       errMessage: btnText + 'に失敗しました。',
       onSuccess: (res) => {
         setIsPopupOpen(false);
-        if (data.homeId) {
+        if (data.id) {
           reloadButKeepDetailShow();
         } else {
           reload();
@@ -238,7 +248,7 @@ export const EmployeeMain = () => {
 
   useEffect(() => {
     if (isLoaded) {
-      setOldFormData(formData);
+      setOldFormData(employeeformData);
     }
   }, [isLoaded]);
 
@@ -247,20 +257,20 @@ export const EmployeeMain = () => {
       <style>
         <EmployeeCss />
       </style>
-      <div id="home">
+      <div id="employee">
         <TableOpeButtons items={[
           { name: "Thêm", buttonType: ButtonType.Add, cb: handleOpenPopupCreate },
-          { name: "Sửa", buttonType: ButtonType.Edit, cb: handleOpenPopupEdit, selectedState: homeId },
-          { name: "Xóa", buttonType: ButtonType.Del, cb: openDeletePopup, selectedState: homeId },
+          { name: "Sửa", buttonType: ButtonType.Edit, cb: handleOpenPopupEdit, selectedState: id },
+          { name: "Xóa", buttonType: ButtonType.Del, cb: openDeletePopup, selectedState: id },
         ] as ButtonProps[]} />
         
-        <div id="homeList"><EmployeeTable cbSelect={chgTgtData} seq={seq} resetSelections={resetSelections} /></div>
+        <div id="employeeList"><EmployeeTable cbSelect={chgTgtData} seq={seq} resetSelections={resetSelections} /></div>
 
-        {homeId &&
+        {/* {id &&
           <div id="unitInfo">
-            <UnitInfo loadParentData={reloadButKeepDetailShow} branchId={branchId} homeId={homeId} seq={seq} />
+            <UnitInfo loadParentData={reloadButKeepDetailShow} branchId={branchId} homeId={id} seq={seq} />
           </div>
-        }
+        } */}
 
         <Popup title={titleText} doText={btnText}
           isOpen={isPopupOpen}
