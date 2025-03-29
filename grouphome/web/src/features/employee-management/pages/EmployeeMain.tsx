@@ -31,7 +31,7 @@ type FormDataDto = NewType;
 const defaultFormData: FormDataDto = {
   id: null, name: '',  birthDay: '',
   address: '', unitId: null , message: '', 
-   updatedAt: ''
+   updatedAt: '',imageEmployee: null
 };
 
 export const EmployeeMain = () => {
@@ -125,6 +125,7 @@ export const EmployeeMain = () => {
       address: rowData.address,
       message: rowData.message,
       unitId: rowData.unitId,
+      imageEmployee: rowData.imageEmployee,
       // postNo1st: postNo?.substring(0, 3) ?? '',
       // postNo2nd: postNo?.substring(3) ?? '',
       // postNo: postNo,
@@ -196,6 +197,7 @@ export const EmployeeMain = () => {
       message: data.message,
       unitId: data.unitId,
       updatedAt: data.updatedAt,
+      imageEmployee: data.imageEmployee,
       // homeId: data.id,
       // addrId: data.addrId,
       // branchId: data.branchId,

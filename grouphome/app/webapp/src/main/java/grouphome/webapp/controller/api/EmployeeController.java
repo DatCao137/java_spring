@@ -23,6 +23,7 @@ import grouphome.webapp.dto.responses.employee.*;
 import grouphome.webapp.dto.requests.employee.*;
 import java.util.List;
 import grouphome.webapp.entity.EmployeeEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class EmployeeController extends BaseController {
@@ -65,7 +66,8 @@ public class EmployeeController extends BaseController {
             )
         }
     )
-    public ResponseEntity<BaseResponse<SaveInfoEmployeeResponseDto>> save(@Valid @RequestBody SaveEmployeeRequestDto request) {
+   
+    public ResponseEntity<BaseResponse<SaveInfoEmployeeResponseDto>> save(@Valid @ModelAttribute SaveEmployeeRequestDto request) {
         SaveInfoEmployeeResponseDto employeeInfo = employeeService.saveEmployeeInfo(request);
         return returnSuccess(new BaseResponse<>(employeeInfo));
     }

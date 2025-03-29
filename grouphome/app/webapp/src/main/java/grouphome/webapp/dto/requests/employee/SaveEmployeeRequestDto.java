@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.web.multipart.MultipartFile;
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,6 +35,6 @@ public class SaveEmployeeRequestDto extends AddressDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.S")
     private LocalDateTime updatedAt;
-    private MultipartFile image_employee;
-    
+    private MultipartFile imageEmployee;
+    private String fileName;
 }

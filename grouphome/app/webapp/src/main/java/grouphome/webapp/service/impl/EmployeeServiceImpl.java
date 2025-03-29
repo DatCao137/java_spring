@@ -39,6 +39,9 @@ import grouphome.webapp.repository.define.employee.EmployeeRepository;
 import grouphome.webapp.service.define.EmployeeService;
 import grouphome.webapp.entity.EmployeeEntity;
 import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
+
+
 @Service
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
@@ -91,7 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         // Check if homeInfoId exists and is not deleted
         if (request.getId() != null && !employeeRepository.existsById(request.getId())) {
             throw new ApiException(ResponseCodeAndMsg.BAD_REQUEST,
-                    "Home Info with ID: " + request.getId() + " does not exist or is deleted");
+                    "Employee Info with ID: " + request.getId() + " does not exist or is deleted");
         }
 
         // Long addrId = saveBlcAddrEntity(request);
@@ -118,6 +121,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         entity.setMessage(dto.getMessage());
         //entity.setUnitId(dto.getUnitId());
         entity.setUpdatedAt(dto.getUpdatedAt());
+        entity.setFileName(dto.getFileName());
+        //entity.setImageEmployee(dto.getImageEmployee());
+          MultipartFile imageFile = dto.getImageEmployee();
+    if (imageFile != null && !imageFile.isEmpty()) {
+        try {
+            byte[] imageBytes = imageFile.getBytes();
+            entity.setImageEmployee(imageBytes);
+        } catch (IOException e) {
+            System.err.println("Lỗi khi xử lý hình ảnh: ");
+        }
+    }
         EmployeeEntity ret = this.employeeRepository.save(entity);
         return ret.getId();
     }

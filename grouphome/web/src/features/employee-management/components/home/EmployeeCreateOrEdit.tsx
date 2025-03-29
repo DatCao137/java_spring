@@ -17,6 +17,7 @@ import { HomeCss } from '@/features/office-management/assets/HomeCss';
 import { EmployeeFormData } from '../../types/Employee';
 import DatePicker from '@/components/elements/CalendarPicker';
 import { EmployeeCreateOrEdit } from '../../validations/employee';
+import { CommonInputFile } from '@/components/elements/common/CommonInputFile';
 //import { FormData } from '@/features/office-management/types/Home';
 
 
@@ -53,7 +54,21 @@ const CreateOrEditPopup = forwardRef(({ employeeformData, setEmployeeFormData,  
     useEffect(() => {
         getSelectData();
     }, []);
+    
+    const handleInputFileChange = (file: File | null) => {
 
+        //const extension = file?.name.split('.').pop()?.toLowerCase() || "";
+        setEmployeeFormData((prev) => ({
+            ...prev,
+            fileName: file?.name || "",
+            //ext: extension,
+            imageEmployee: file,
+          
+        }));
+
+        document.getElementById("fileName")?.focus();
+
+    };
     const { register, formState: { errors }, trigger } = useForm({
         resolver: zodResolver(EmployeeCreateOrEdit),
         defaultValues: employeeformData || {},
@@ -137,6 +152,20 @@ const CreateOrEditPopup = forwardRef(({ employeeformData, setEmployeeFormData,  
                                     className={`w-full ${errors.message ? 'error-background' : ''}`}
                                 />
                                 {errors.message && <span className="error-message">{errors.message.message}</span>}
+                            </div>
+                            <div className="md:w-1/3">
+                                <label htmlFor='imageEmployee' className="home-label1">Ảnh</label>
+                            </div>
+                            <div className="md:w-3/4 p-1">
+                                <CommonInputFile
+                                    id='imageEmployee'
+                                    {...register('imageEmployee')}
+                                    value={employeeformData?.imageEmployee}
+                                    onChange={handleInputFileChange}
+                                    className={`w-full ${errors.imageEmployee ? 'error-background' : ''}`}
+                                    accept=".txt, .pdf, image/png, image/jpg, image/gif, image/webp"
+                                />
+                                {errors.imageEmployee && <span className="error-message">{errors.imageEmployee.message}</span>}
                             </div>
                         </div>
                     </div>

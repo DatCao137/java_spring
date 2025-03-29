@@ -10,7 +10,7 @@ import java.util.Map;
 import grouphome.webapp.dto.requests.blc_common.PagerDto;
 
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper=false)
 public class EmployeeRequestDto extends PagerDto {
     private String name;
     private Map<String, String> filter;

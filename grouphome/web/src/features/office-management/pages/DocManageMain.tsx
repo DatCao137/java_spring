@@ -182,7 +182,7 @@ export const DocManageMain = () => {
   }
 
   const doSave = async (data: DocManageSaveDto) => {
-
+    console.log('8888888', data);
     Post({
       apiPath: ApiDocFileSave,
       params: data,

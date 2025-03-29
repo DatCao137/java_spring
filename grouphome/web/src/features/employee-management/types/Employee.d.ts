@@ -6,7 +6,7 @@ export type EmployeeFormData = {
     message: string | null;
     unitId: number | null;
     updatedAt: string;
-  
+    imageEmployee: File | null;
 }
 
 export type EmployeeInfoSaveDto = {
@@ -17,4 +17,5 @@ export type EmployeeInfoSaveDto = {
     message: string | null;
     unitId: number | null;
     updatedAt: string;
+    imageEmployee: File | null;
 }

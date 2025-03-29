@@ -49,7 +49,11 @@ public class EmployeeEntity extends EntityBase {
      */
     @Column(name = "unit_id")
     private Integer unitId;
+
+    @Column(name = "file_name")
+    private String fileName;
+
     @Column(name = "image_employee")
-    private byte[] image_employee;
+    private byte[] imageEmployee;
     
 }
