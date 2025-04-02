@@ -31,7 +31,7 @@ interface CreateOrEditPopupProps {
 const CreateOrEditPopup = forwardRef(({ employeeformData, setEmployeeFormData,  }: CreateOrEditPopupProps, ref) => {
     const [selPref, setSelPref] = useState([]);
     const [selBranch, setSelBranch] = useState([]);
-    const handleInputChange = (e: any) => {``
+    const handleInputChange = (e: any) => {
         setValue<EmployeeFormData>(e, setEmployeeFormData);
     };
 

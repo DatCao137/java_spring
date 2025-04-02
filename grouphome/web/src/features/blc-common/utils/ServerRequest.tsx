@@ -43,7 +43,7 @@ const statusCheck = (res: any,
 
 export const Post = async (param: ServerRequestProps) => {
     let headers = {};
-    if(param.apiPath == "/api/doc/file/save") {
+    if(param.apiPath == "/api/doc/file/save"||param.apiPath == "/api/employee/save") {
         headers = {
             "Content-Type": "multipart/form-data",
             };
